@@ -57,7 +57,7 @@ more info [Laravel User Roles and Permissions](https://www.itsolutionstuff.com/p
 
 `php artisan vendor:publish --provider="Nwidart\Modules\LaravelModulesServiceProvider"`
 
-in `composer.json`
+in composer.json
 
 ```json
 {
