@@ -4,7 +4,7 @@
 
 @section('auth_body')
 
-    @if(session('resent'))
+    @if (session('resent'))
         <div class="alert alert-success" role="alert">
             {{ __('adminlte::adminlte.verify_email_sent') }}
         </div>
@@ -12,6 +12,10 @@
 
     {{ __('adminlte::adminlte.verify_check_your_email') }}
     {{ __('adminlte::adminlte.verify_if_not_recieved') }},
+    
+    <br>
+    <a href="https://mail.google.com/" target="_blank">Buka Email</a>
+    <br>
 
     <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
         @csrf
