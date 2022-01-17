@@ -17,8 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/dashboard', function() {
     return view('dashboard');
-})->name('dashboard')->middleware('auth');
+})->name('dashboard')->middleware('auth','verified');
+
+Route::get('/home', function() {
+    return view('home');
+})->name('home')->middleware('auth','verified');

@@ -75,3 +75,15 @@ in composer.json
 info [Laravel Modular Command](https://nwidart.com/laravel-modules/v6/advanced-tools/artisan-commands)
 
 `php artisan module:make User Role`
+
+## 4. Other Package
+
+[Laravolt Indonesia](https://github.com/laravolt/indonesia)
+`composer require laravolt/indonesia`
+
+`php artisan vendor:publish --provider="Laravolt\Indonesia\ServiceProvider"`
+
+`php artisan migrate`
+
+`php artisan laravolt:indonesia:seed`
+
