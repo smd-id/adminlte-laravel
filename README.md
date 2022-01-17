@@ -1,21 +1,30 @@
 # Installation
 
-1. Intall Admin LTE Laravel UI
+## 1. Intall Admin LTE Laravel UI
 
 `composer require jeroennoten/laravel-adminlte`
+
 `php artisan adminlte:install`
+
 `composer require laravel/ui`
+
 `php artisan ui bootstrap --auth`
+
 `php artisan adminlte:install --type=full --with=main_views`
+
 `php artisan adminlte:status`
 
 info [jeroennoten/Laravel-AdminLTE](https://github.com/jeroennoten/Laravel-AdminLTE/wiki)
 
-2. Install User Roles and Permissions
+## 2. Install User Roles and Permissions
+
 
 `composer require spatie/laravel-permission`
+
 `composer require laravelcollective/html`
+
 `php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"`
+
 `php artisan migrate`
 
 in app/Models/User.php
@@ -42,4 +51,4 @@ protected $routeMiddleware = [
 
 more info [Laravel User Roles and Permissions](https://www.itsolutionstuff.com/post/laravel-8-user-roles-and-permissions-tutorialexample.html)
 
-3. Install Laravel Modular
+## 3. Install Laravel Modular
