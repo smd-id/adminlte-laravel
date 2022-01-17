@@ -73,3 +73,5 @@ in `composer.json`
 `composer dump-autoload`
 
 info [Laravel Modular Command](https://nwidart.com/laravel-modules/v6/advanced-tools/artisan-commands)
+
+`php artisan module:make User Role`
