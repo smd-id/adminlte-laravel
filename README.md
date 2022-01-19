@@ -91,3 +91,5 @@ info [Laravel Modular Command](https://nwidart.com/laravel-modules/v6/advanced-t
 [SweetAlert2 ](https://github.com/realrashid/sweet-alert)
 `composer require realrashid/sweet-alert`
 
+[Datatables Yajra](https://github.com/yajra/laravel-datatables)
+`composer require yajra/laravel-datatables-oracle`

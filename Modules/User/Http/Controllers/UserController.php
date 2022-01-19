@@ -27,9 +27,9 @@ class UserController extends Controller
     }
     public function index()
     {
-        $users = User::latest()->with(['roles', 'desa', 'kecamatan', 'kabupaten', 'provinsi'])->get();
-        $roles = Role::pluck('name', 'name')->all();
-        return view('user::admin.index', compact(['users', 'roles']))->with(['i' => 0]);
+        // $users = User::latest()->with(['roles', 'desa', 'kecamatan', 'kabupaten', 'provinsi'])->get();
+        // $roles = Role::pluck('name', 'name')->all();
+        return view('user::user_index');
     }
     public function store(Request $request)
     {

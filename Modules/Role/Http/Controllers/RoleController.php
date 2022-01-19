@@ -19,7 +19,7 @@ class RoleController extends Controller
     {
         $roles = Role::with(['permissions'])->latest()->get();
         $permissions = Permission::get();
-        return view('role::admin-role-index', compact(['roles', 'permissions']))->with(['i' => 0, 'j' => 0]);
+        return view('role::role_index', compact(['roles', 'permissions']))->with(['i' => 0, 'j' => 0]);
     }
     public function store(Request $request)
     {

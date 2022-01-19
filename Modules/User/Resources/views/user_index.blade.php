@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-lg-3 col-6">
-                    <div class="small-box bg-success">
+                    {{-- <div class="small-box bg-success">
                         <div class="inner">
                             <h3>{{ $users->count() }}</h3>
                             <p>User Terdaftar</p>
@@ -24,7 +24,7 @@
                                 Tambah User <i class="fas fa-plus-circle"></i>
                             </a>
                         @endcan
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="card card-secondary">
@@ -46,7 +46,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $item)
+                            {{-- @foreach ($users as $item)
                                 <tr>
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $item->nik }}</td>
@@ -79,7 +79,7 @@
                                             title="Edit" class="edit btn btn-primary btn-xs editProduct"><i class="fas fa-edit"></i></a>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                     </table>
                 </div>
@@ -96,7 +96,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                {!! Form::open(['route' => 'admin.user.store', 'id' => 'productForm', 'name' => 'productForm', 'method' => 'POST', 'files' => true]) !!}
+                {{-- {!! Form::open(['route' => 'admin.user.store', 'id' => 'productForm', 'name' => 'productForm', 'method' => 'POST', 'files' => true]) !!}
                 <div class="modal-body">
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -142,7 +142,7 @@
                     <button type="submit" class="btn btn-success">Submit</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
-                {!! Form::close() !!}
+                {!! Form::close() !!} --}}
             </div>
         </div>
     </div>
