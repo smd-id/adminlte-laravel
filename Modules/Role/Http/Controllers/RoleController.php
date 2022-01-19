@@ -2,78 +2,48 @@
 
 namespace Modules\Role\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    function __construct()
+    {
+        $this->middleware('permission:admin');
+    }
     public function index()
     {
-        return view('role::index');
+        $roles = Role::with(['permissions'])->latest()->get();
+        $permissions = Permission::get();
+        return view('role::admin-role-index', compact(['roles', 'permissions']))->with(['i' => 0, 'j' => 0]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('role::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required|unique:roles,name,' . $request->id,
+        ]);
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('role::show');
-    }
+        $role = Role::updateOrCreate(['id' => $request->id], ['name' => $request->name]);
+        $role->syncPermissions($request->permission);
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
+        Alert::success('Success Info', 'Success Message');
+        return redirect()->route('admin.role.index');
+    }
     public function edit($id)
     {
-        return view('role::edit');
+        $role = Role::find($id);
+        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
+            ->pluck('role_has_permissions.permission_id')
+            ->all();
+        return response()->json(['role' => $role, 'rolePermissions' => $rolePermissions]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
     public function destroy($id)
     {
-        //
+        Role::find($id)->delete();
+        return redirect()->route('admin.role.index');
     }
 }

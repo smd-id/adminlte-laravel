@@ -87,3 +87,7 @@ info [Laravel Modular Command](https://nwidart.com/laravel-modules/v6/advanced-t
 
 `php artisan laravolt:indonesia:seed`
 
+
+[SweetAlert2 ](https://github.com/realrashid/sweet-alert)
+`composer require realrashid/sweet-alert`
+
