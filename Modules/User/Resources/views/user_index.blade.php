@@ -32,11 +32,35 @@
                     <h3 class="card-title">Tabel Data User</h3>
                 </div>
                 <div class="card-body">
-
-
                     <div class="dataTables_wrapper dataTable">
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-md-8">
+                                <x-adminlte-button label="Tambah" class="btn-sm" theme="success" title="Tooltip"
+                                    icon="fas fa-plus" />
+                                <x-adminlte-button label="Export" class="btn-sm" theme="primary" title="Tooltip"
+                                    icon="fas fa-print" />
+                                <x-adminlte-button label="Import" class="btn-sm" theme="warning" title="Tooltip"
+                                    icon="fas fa-upload" />
+                                <x-adminlte-button label="Terhapus" class="btn-sm" theme="danger" title="Tooltip"
+                                    icon="fas fa-trash-alt" />
+                            </div>
+                            <div class="col-md-4">
+                                <x-adminlte-input name="iSearch" placeholder="Pncarian" igroup-size="sm">
+                                    <x-slot name="appendSlot">
+                                        <x-adminlte-button theme="outline-primary" label="Go!" />
+                                    </x-slot>
+                                    <x-slot name="prependSlot">
+                                        <div class="input-group-text text-primary">
+                                            <i class="fas fa-search"></i>
+                                        </div>
+                                    </x-slot>
+                                </x-adminlte-input>
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
                                 @php
                                     $heads = ['ID', 'NIK', 'Name', 'Username'];
                                     $config['paging'] = false;
@@ -71,7 +95,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -155,47 +178,6 @@
                 }
             });
 
-            // var table = $('#example1').DataTable({
-            //     serverSide: false,
-            //     ajax: {
-            //         url: '{{ route('admin.user.index') }}',
-            //         data: function(data) {
-            //             data.params = {
-            //                 sac: "helo"
-            //             }
-            //         }
-            //     },
-            //     buttons: false,
-            //     searching: true,
-            //     scrollY: 500,
-            //     // scrollX: true,
-            //     scrollCollapse: true,
-            //     columns: [{
-            //             data: 'DT_RowIndex',
-            //         },
-            //         {
-            //             data: 'nik',
-            //         },
-            //         {
-            //             data: 'name',
-            //         },
-            //         {
-            //             data: 'email',
-            //         },
-            //         {
-            //             data: 'username',
-            //         },
-            //         {
-            //             data: 'roles',
-            //         },
-            //         {
-            //             data: 'action',
-            //             orderable: false,
-            //             searchable: false
-            //         },
-            //     ],
-            // });
-
             $('#createNewProduct').click(function() {
                 // $('#saveBtn').val("create-product");
                 $('#id').val('');
@@ -219,12 +201,5 @@
                 })
             });
         });
-    </script>
-    <script>
-        // $(function() {
-        //     $('#example1').DataTable({
-        //         "lengthChange": false
-        //     });
-        // });
     </script>
 @endsection
