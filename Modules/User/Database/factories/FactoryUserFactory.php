@@ -1,12 +1,17 @@
 <?php
-
-namespace Database\Factories;
+namespace Modules\User\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class UserFactory extends Factory
+class FactoryUserFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \Modules\User\Entities\FactoryUser::class;
+
     /**
      * Define the model's default state.
      *
@@ -24,18 +29,5 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
         ];
     }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    public function unverified()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'email_verified_at' => null,
-            ];
-        });
-    }
 }
+

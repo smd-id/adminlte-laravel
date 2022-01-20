@@ -3,7 +3,6 @@
 namespace Modules\User\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -15,9 +14,10 @@ use Laravolt\Indonesia\Models\Province;
 use Laravolt\Indonesia\Models\Village;
 use Modules\User\Entities\Agama;
 use Modules\User\Entities\Gender;
-use Modules\User\Entities\Pekerjaan;
+// use Modules\User\Entities\Pekerjaan;
 use Modules\User\Entities\Perkawinan;
 use RealRashid\SweetAlert\Facades\Alert;
+use DataTables;
 
 class UserController extends Controller
 {
@@ -25,11 +25,31 @@ class UserController extends Controller
     {
         $this->middleware('permission:admin', ['only' => ['index', 'store', 'edit']]);
     }
-    public function index()
+    public function index(Request $request)
     {
-        // $users = User::latest()->with(['roles', 'desa', 'kecamatan', 'kabupaten', 'provinsi'])->get();
-        // $roles = Role::pluck('name', 'name')->all();
-        return view('user::user_index');
+        $users = User::paginate(20);
+        // $users_n = User::count();
+        // dd($users);
+
+        // if ($request->ajax()) {
+        //     $data = User::with('roles')->latest()->get();
+        //     return Datatables::of($data)
+        //         ->addIndexColumn()
+        //         ->addColumn('roles', function (User $user) {
+        //             return $user->roles->map(function ($role) {
+        //                 return $role->name;
+        //             })->implode('-');
+        //         })
+        //         ->addColumn('action', function ($row) {
+        //             $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Edit</a>';
+        //             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct">Delete</a>';
+        //             return $btn;
+        //         })
+        //         ->rawColumns(['action'])
+        //         ->make(true);
+        // }
+
+        return view('user::user_index', compact(['users']))->with(['i' => 0]);
     }
     public function store(Request $request)
     {

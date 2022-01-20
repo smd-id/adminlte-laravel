@@ -380,6 +380,12 @@ return [
                     'asset' => true,
                     'location' => 'vendor/datatables-plugins/responsive/css/responsive.bootstrap4.min.css',
                 ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.datatables.net/scroller/2.0.5/js/dataTables.scroller.min.js',
+                ],
+
             ],
         ],
         'Select2' => [

@@ -11,9 +11,9 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-lg-3 col-6">
-                    {{-- <div class="small-box bg-success">
+                    <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>{{ $users->count() }}</h3>
+                            <h3 id="jumlah_user">{{ $users->total() }}</h3>
                             <p>User Terdaftar</p>
                         </div>
                         <div class="icon">
@@ -24,7 +24,7 @@
                                 Tambah User <i class="fas fa-plus-circle"></i>
                             </a>
                         @endcan
-                    </div> --}}
+                    </div>
                 </div>
             </div>
             <div class="card card-secondary">
@@ -32,56 +32,46 @@
                     <h3 class="card-title">Tabel Data User</h3>
                 </div>
                 <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>NIK</th>
-                                <th>Name</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Alamat</th>
-                                <th>Role</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{-- @foreach ($users as $item)
-                                <tr>
-                                    <td>{{ ++$i }}</td>
-                                    <td>{{ $item->nik }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->username }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td>
-                                        @empty(!$item->desa && !$item->kecamatan && !$item->kabupaten)
-                                            {{ $item->desa->name }} , {{ $item->kecamatan->name }} ,
-                                            {{ $item->kabupaten->name }}
-                                        @endempty
-                                    </td>
-                                    <td>
-                                        @if (!empty($item->getRoleNames()))
-                                            @foreach ($item->getRoleNames() as $v)
-                                                <label class="badge badge-success">{{ $v }}</label>
-                                            @endforeach
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($item->email_verified_at == null)
-                                            <i class="fas fa-user-times text-danger" data-tooltip="tooltip"
-                                                title="Email Belum Terverifikasi"></i>
-                                        @else
-                                        <a href="#verfikasi"></a>
-                                            <i class="fas fa-user-check text-success" data-tooltip="tooltip"
-                                                title="Email Telah Terverifikasi"></i>
-                                        @endif
-                                        <a href="javascript:void(0)" data-id="{{ $item->id }}" data-tooltip="tooltip"
-                                            title="Edit" class="edit btn btn-primary btn-xs editProduct"><i class="fas fa-edit"></i></a>
-                                    </td>
-                                </tr>
-                            @endforeach --}}
-                        </tbody>
-                    </table>
+
+
+                    <div class="dataTables_wrapper dataTable">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                @php
+                                    $heads = ['ID', 'NIK', 'Name', 'Username'];
+                                    $config['paging'] = false;
+                                    $config['lengthMenu'] = false;
+                                    $config['searching'] = false;
+                                    $config['info'] = false;
+                                @endphp
+                                <x-adminlte-datatable id="table1" :heads="$heads" :config="$config" hoverable bordered
+                                    compressed>
+                                    @foreach ($users as $item)
+                                        <tr>
+                                            <td>{{ $item->id }}</td>
+                                            <td>{{ $item->nik }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->username }}</td>
+                                        </tr>
+                                    @endforeach
+                                </x-adminlte-datatable>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="dataTables_info">
+                                    Tampil {{ $users->firstItem() }} sampai {{ $users->lastItem() }} dari total
+                                    {{ $users->total() }}
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="dataTables_paginate pagination-sm">
+                                    {{ $users->links() }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -164,6 +154,48 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+            // var table = $('#example1').DataTable({
+            //     serverSide: false,
+            //     ajax: {
+            //         url: '{{ route('admin.user.index') }}',
+            //         data: function(data) {
+            //             data.params = {
+            //                 sac: "helo"
+            //             }
+            //         }
+            //     },
+            //     buttons: false,
+            //     searching: true,
+            //     scrollY: 500,
+            //     // scrollX: true,
+            //     scrollCollapse: true,
+            //     columns: [{
+            //             data: 'DT_RowIndex',
+            //         },
+            //         {
+            //             data: 'nik',
+            //         },
+            //         {
+            //             data: 'name',
+            //         },
+            //         {
+            //             data: 'email',
+            //         },
+            //         {
+            //             data: 'username',
+            //         },
+            //         {
+            //             data: 'roles',
+            //         },
+            //         {
+            //             data: 'action',
+            //             orderable: false,
+            //             searchable: false
+            //         },
+            //     ],
+            // });
+
             $('#createNewProduct').click(function() {
                 // $('#saveBtn').val("create-product");
                 $('#id').val('');
@@ -180,7 +212,7 @@
                     $('#id').val(data['user'].id);
                     $('#nik').val(data['user'].nik);
                     $('#name').val(data['user'].name);
-                    $('#role').val(data['role'][0]);
+                    // $('#role').val(data['role'][0]);
                     $('#phone').val(data['user'].phone);
                     $('#email').val(data['user'].email);
                     $('#username').val(data['user'].username);
@@ -188,15 +220,11 @@
             });
         });
     </script>
-
     <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["excel", "pdf", "print", "colvis"],
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        });
+        // $(function() {
+        //     $('#example1').DataTable({
+        //         "lengthChange": false
+        //     });
+        // });
     </script>
 @endsection
