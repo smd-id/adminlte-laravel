@@ -12,6 +12,7 @@ use Laravolt\Indonesia\Models\Province;
 use Laravolt\Indonesia\Models\Village;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\User\Database\factories\UserFactory;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -71,5 +72,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function provinsi()
     {
         return $this->belongsTo(Province::class, 'province_id', 'code');
+    }
+
+    protected static function newFactory()
+    {
+        return UserFactory::new();
     }
 }

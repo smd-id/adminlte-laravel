@@ -49,7 +49,7 @@ class UserDatabaseSeeder extends Seeder
         // User::factory(5)->create()->each(function ($item) {
         //     $item->assignRole('Kasir');
         // });
-        User::factory(10000)->create()->each(function ($item) {
+        User::factory(10)->create()->each(function ($item) {
             $item->assignRole('Keuangan');
         });
         // User::factory(5)->create()->each(function ($item) {

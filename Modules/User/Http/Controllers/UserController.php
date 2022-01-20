@@ -14,10 +14,8 @@ use Laravolt\Indonesia\Models\Province;
 use Laravolt\Indonesia\Models\Village;
 use Modules\User\Entities\Agama;
 use Modules\User\Entities\Gender;
-// use Modules\User\Entities\Pekerjaan;
 use Modules\User\Entities\Perkawinan;
 use RealRashid\SweetAlert\Facades\Alert;
-use DataTables;
 
 class UserController extends Controller
 {
@@ -27,29 +25,15 @@ class UserController extends Controller
     }
     public function index(Request $request)
     {
-        $users = User::paginate(20);
-        // $users_n = User::count();
-        // dd($users);
+        $users = User::with(['roles'])
+            ->where(function ($query) use ($request) {
+                $query->where('name', "like", "%" . $request->search . "%");
+                $query->orWhere('nik', "like", "%" . $request->search . "%");
+            })
+            ->paginate(10);
 
-        // if ($request->ajax()) {
-        //     $data = User::with('roles')->latest()->get();
-        //     return Datatables::of($data)
-        //         ->addIndexColumn()
-        //         ->addColumn('roles', function (User $user) {
-        //             return $user->roles->map(function ($role) {
-        //                 return $role->name;
-        //             })->implode('-');
-        //         })
-        //         ->addColumn('action', function ($row) {
-        //             $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Edit</a>';
-        //             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct">Delete</a>';
-        //             return $btn;
-        //         })
-        //         ->rawColumns(['action'])
-        //         ->make(true);
-        // }
-
-        return view('user::user_index', compact(['users']))->with(['i' => 0]);
+        $roles = Role::pluck('name', 'id')->toArray();
+        return view('user::user_index', compact(['users', 'request', 'roles']))->with(['i' => 0]);
     }
     public function store(Request $request)
     {
@@ -64,7 +48,7 @@ class UserController extends Controller
         DB::table('model_has_roles')->where('model_id', $request->id)->delete();
         $user->assignRole($request->role);
         Alert::success('Success', 'Data Telah Disimpan');
-        return redirect()->route('admin.user.index');
+        return redirect()->route('admin.user.index')->with(['success' => 'Data Telah Disimpan']);
     }
     public function edit($id)
     {
