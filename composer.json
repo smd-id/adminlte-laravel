@@ -13,6 +13,7 @@
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "laravelcollective/html": "^6.2",
         "laravolt/indonesia": "^0.30.0",
         "nwidart/laravel-modules": "^8.2",
         "pragmarx/version": "^1.3",

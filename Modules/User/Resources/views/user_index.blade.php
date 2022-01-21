@@ -116,15 +116,15 @@
     <x-adminlte-modal id="modalCustom" title="Tambah User" theme="success" v-centered static-backdrop scrollable>
         <form action="{{ route('admin.user.store') }}" id="myform" method="post">
             @csrf
-            <x-adminlte-input name="nik" label="NIK" placeholder="Nomor Induk Kependudukan" required />
-            <x-adminlte-input name="name" label="Nama" placeholder="Nama Lengkap" required />
-            <x-adminlte-select2 id="role" name="role[]" label="Role / Jabatan" required multiple>
+            <x-adminlte-input name="nik" label="NIK" placeholder="Nomor Induk Kependudukan" enable-old-support required />
+            <x-adminlte-input name="name" label="Nama" placeholder="Nama Lengkap" enable-old-support required />
+            <x-adminlte-select2 id="role" name="role[]" label="Role / Jabatan" enable-old-support multiple required>
                 <x-adminlte-options :options=$roles />
             </x-adminlte-select2>
             <x-adminlte-input name="phone" type="number" label="Nomor HP / Telepon"
-                placeholder="Nomor HP / Telepon yang dapat dihubungi" required />
-            <x-adminlte-input name="email" type="email" label="Email" placeholder="Email" required />
-            <x-adminlte-input name="username" label="Username" placeholder="Username" required />
+                placeholder="Nomor HP / Telepon yang dapat dihubungi" enable-old-support />
+            <x-adminlte-input name="email" type="email" label="Email" placeholder="Email" enable-old-support required />
+            <x-adminlte-input name="username" label="Username" placeholder="Username" enable-old-support required />
             <x-adminlte-input name="password" type="password" label="Password" placeholder="Password" />
         </form>
         <x-slot name="footerSlot">

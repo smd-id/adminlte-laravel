@@ -38,17 +38,18 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'username' => 'required|alpha_dash|unique:users,username,' . $request->id,
+            'email' => 'required|email|unique:users,email,' . $request->id,
+            'nik' => 'unique:users,nik,' . $request->id,
             'name' => 'required',
             'role' => 'required',
-            'email' => 'unique:users,email,' . $request->id,
-            'username' => 'required|alpha_dash|unique:users,username,' . $request->id,
         ]);
 
         $user = User::updateOrCreate(['id' => $request->id], $request->except(['_token', 'id', 'password', 'role']));
         DB::table('model_has_roles')->where('model_id', $request->id)->delete();
         $user->assignRole($request->role);
         Alert::success('Success', 'Data Telah Disimpan');
-        return redirect()->route('admin.user.index')->with(['success' => 'Data Telah Disimpan']);
+        return redirect()->route('admin.user.index');
     }
     public function edit($id)
     {
